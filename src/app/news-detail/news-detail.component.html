@@ -1,0 +1,65 @@
+<div class="content container">
+    <div *ngIf="article$ | async as article">
+        <img
+            *ngIf="article.urlToImage"
+            [src]="article.urlToImage"
+            class="article-image"
+        />
+        <img
+            *ngIf="!article.urlToImage"
+            src="assets/images/placeholder.jpg"
+            class="article-image"
+        />
+        <div class="row">
+            <div class="article-subdesc col-sm-3 col-xs-12">
+                <div class="row">
+                    <div class="subdesc col-sm-12 col-xs-3">
+                        {{ article.source.name.toUpperCase() }}
+                    </div>
+                    <div class="subdesc col-sm-12 col-xs-3">
+                        {{ article.author }}
+                    </div>
+                    <div class="subdesc col-sm-12 col-xs-3">
+                        {{ article.publishedAt | date: "MMM dd, yyyy" }}
+                    </div>
+                    <div class="subdesc comment-header col-sm-12 col-xs-3">
+                        3 comments
+                    </div>
+                </div>
+            </div>
+            <div class="article-desc col-sm-9 col-xs-12">
+                <p class="article-title">{{ article.title }}</p>
+                <p class="article-description">{{ article.description }}</p>
+                <p class="article-description" *ngIf="readMore">
+                    {{ article.content }}
+                </p>
+                <button
+                    mat-raised-button
+                    color="warn"
+                    (click)="handleClick($event)"
+                >
+                    {{ readMore ? "Read Less" : "Read More" }}
+                </button>
+            </div>
+        </div>
+        <div class="comment-section">
+            <h4>3 Comments</h4>
+            <div *ngFor="let comment of comments" class="comment row">
+                <div class="comment-image-container col-2">
+                    <img [src]="comment.avatar" class="comment-image" />
+                </div>
+                <div class="col-10">
+                    <span>{{ comment.name }}</span>
+                    <span class="comment-date">{{
+                        comment.date | date: "MMM dd, yyyy"
+                    }}</span>
+                    <p class="comment-desc">{{ comment.comment }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Artile man image -->
+        <!-- Artile title, description, metadata -->
+        <!-- Read more button -->
+        <!-- Comments section -->
+    </div>
+</div>

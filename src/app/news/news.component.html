@@ -1,0 +1,56 @@
+<div class="content">
+    <div class="search">
+        <mat-form-field>
+            <input
+                matInput
+                matProgressBar
+                type="text"
+                #movieSearchInput
+                placeholder="Search"
+            />
+        </mat-form-field>
+    </div>
+    <mat-spinner *ngIf="loading" class="loading"></mat-spinner>
+    <div class="content-article row" *ngIf="!loading">
+        <div
+            *ngFor="let article of articles"
+            class="article col-sm-4 col-xs-12"
+        >
+            <a routerLink="/article" [state]="article">
+                <img
+                    *ngIf="article.urlToImage"
+                    [src]="article.urlToImage"
+                    class="article-image"
+                />
+                <img
+                    *ngIf="!article.urlToImage"
+                    src="assets/images/placeholder.jpg"
+                    class="article-image"
+                />
+            </a>
+
+            <div class="article-desc">
+                <div class="article-source-date">
+                    <span class="source">{{
+                        article.source.name.toUpperCase()
+                    }}</span>
+                    <span class="date">{{
+                        article.publishedAt | date: "MMM dd, yyyy"
+                    }}</span>
+                </div>
+                <a
+                    class="article-title"
+                    routerLink="/article"
+                    [state]="article"
+                >
+                    {{ article.title }}
+                </a>
+                <p class="article-description">{{ article.description }}</p>
+            </div>
+        </div>
+
+        <!-- Search mat input with debouncing and mat progress bar for loading -->
+        <!-- List of fetched articles as snippets per the provided designs -->
+        <!-- No results indication -->
+    </div>
+</div>
